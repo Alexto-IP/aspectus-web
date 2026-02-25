@@ -23,17 +23,30 @@ function MainForm() {
         setLoading(true);
         setErrorMessage(null);
 
+        // Собираем payload для API
+        const payload = {
+            ...data,
+            drug_info: {
+                drug_name: data.drug_name,
+                active_substance: data.active_substance,
+                dosage_form: data.dosage_form,
+                dosage: data.dosage // <-- добавь поле
+            }
+        };
+
+        // Убираем поля верхнего уровня, которые теперь внутри drug_info
+        delete payload.drug_name;
+        delete payload.active_substance;
+        delete payload.dosage_form;
+        delete payload.dosage;
+
         try {
             const response = await fetch(
-                "https://d5dlr1b0vg46tlm11rq7.yl4tuxdu.apigw.yandexcloud.net/api/synopsis/generate",
+                "https://d5dlr1b0vg46tlm11rq7.yl4tuxdu.apigw.yandexcloud.net/api/inclusion-criteria/generate",
                 {
                     method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify({
-                        variables: data
-                    }),
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload),
                 }
             );
 
@@ -41,13 +54,14 @@ function MainForm() {
                 const text = await response.text();
                 throw new Error(text);
             }
-
+            
+            console.log(await response.text())
             const blob = await response.blob();
 
             const url = window.URL.createObjectURL(blob);
             const a = document.createElement("a");
             a.href = url;
-            a.download = "synopsis.docx";
+            a.download = "inclusion_criteria.docx";
             document.body.appendChild(a);
             a.click();
             a.remove();
@@ -139,7 +153,7 @@ function MainForm() {
                         variant="h6"
                         sx={{ mt: 4, mb: 2, fontWeight: 600, color: "var(--orange-secondary)" }}
                     >
-                        Информация о препарате
+                        Информация о референсном препарате
                     </Typography>
 
                     <InputField
@@ -166,6 +180,14 @@ function MainForm() {
                         error={errors.dosage_form}
                     />
 
+                    <InputField
+                        label="Дозировка (мг)"
+                        placeholder="Введите дозировку"
+                        type="number"
+                        register={register("dosage", { required: "Обязательное поле" })}
+                        error={errors.dosage}
+                    />
+
                     {/* ---------- ПАРАМЕТРЫ ИССЛЕДОВАНИЯ ---------- */}
                     <Typography
                         variant="h6"
@@ -175,27 +197,12 @@ function MainForm() {
                     </Typography>
 
                     <InputField
-                        label="Период вымывания (дней)" 
-                        placeholder="Введите количество дней" 
-                        type="number" 
-                        register={register("washout_days", { required: "Обязательное поле" })}
-                        error={errors.washout_days}
-                    />
-
-                    <InputField
-                        label="Период полувыведения (часы)" 
-                        placeholder="Введите количество часов" 
-                        type="number" 
-                        register={register("half_life_hours", { required: "Обязательное поле" })}
-                        error={errors.half_life_hours}
-                    />
-
-                    <InputField
-                        label="Допустимый пол" 
-                        placeholder="Укажите допустимый пол" 
-                        type="text" 
+                        label="Допустимый пол"
+                        placeholder="Выберите пол"
+                        type="text"
                         register={register("gender_allowed", { required: "Обязательное поле" })}
                         error={errors.gender_allowed}
+                        options={["Не важно", "Мужской", "Женский"]}
                     />
 
                     <InputField
