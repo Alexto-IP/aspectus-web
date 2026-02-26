@@ -152,7 +152,7 @@ function MainForm() {
                         variant="h6"
                         sx={{ mt: 4, mb: 2, fontWeight: 600, color: "var(--orange-secondary)" }}
                     >
-                        Информация о референсном препарате
+                        Информация об исследуемом препарате
                     </Typography>
 
                     <InputField
@@ -192,7 +192,7 @@ function MainForm() {
                         variant="h6"
                         sx={{ mt: 4, mb: 2, fontWeight: 600, color: "var(--orange-secondary)" }}
                     >
-                        Параметры исследования
+                        Характеристики добровольцев
                     </Typography>
 
                     <InputField
@@ -205,7 +205,7 @@ function MainForm() {
                     />
 
                     <InputField
-                        label="Исключение после предыдущего исследования (мес.)" 
+                        label="Необходимый интервал после предыдущего исследования (мес.)" 
                         placeholder="Введите количество месяцев" 
                         type="number" 
                         register={register("prior_study_exclusion_months", { required: "Обязательное поле" })}
