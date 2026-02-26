@@ -42,7 +42,7 @@ function MainForm() {
 
         try {
             const response = await fetch(
-                "https://d5dlr1b0vg46tlm11rq7.yl4tuxdu.apigw.yandexcloud.net/api/inclusion-criteria/generate",
+                "https://d5dlr1b0vg46tlm11rq7.yl4tuxdu.apigw.yandexcloud.net/generate",
                 {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
@@ -55,7 +55,6 @@ function MainForm() {
                 throw new Error(text);
             }
             
-            console.log(await response.text())
             const blob = await response.blob();
 
             const url = window.URL.createObjectURL(blob);
@@ -222,7 +221,7 @@ function MainForm() {
                                         Формирование...
                                     </>
                                 ) : (
-                                    "Сформировать отчёт"
+                                    "Сформировать черновик отчета"
                                 )
                             }
                             type="submit"
