@@ -1,6 +1,11 @@
 # Aspectus Frontend
 
-Этот репозиторий содержит фронтенд для приложения с ИИ формированием черновика отчета для онкологический исследований 
+Этот репозиторий содержит фронтенд для приложения с ИИ формированием черновика отчета для онкологический исследований. Данное приложение было разработано в рамках участия в кейс-чемпионате "Инновационные решения для онкологии"
+
+![React](https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black)
+![MUI](https://img.shields.io/badge/MUI-007FFF?style=flat-square&logo=mui&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white)
+![React Hook Form](https://img.shields.io/badge/React_Hook_Form-EC5990?style=flat-square&logo=reacthookform&logoColor=white)
 
 ## Структура проекта
 
